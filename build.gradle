@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'io.izzel.taboolib' version '1.2'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0-rc'
+}
+
+group = 'ink.ptms.adyeshach.additional'
+version = '1.0.0 ALPHA'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+taboolib {
+    tabooLibVersion = '5.36'
+    loaderVersion = '2.6'
+    classifier = null
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'ink.ptms.cronus:Cronus:1'
+    compile 'ink.ptms.adyeshach:Adyeshach:1.0.2'
+    compile 'pl.betoncraft.betonquest:BetonQuest:1.12.0'
+    compile 'ink.ptms.core:v11600:11600:all'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib'
+    compileOnly fileTree(dir: 'libs', includes: ['*.jar'])
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'plugin.yml'
+        expand name: rootProject.name, main: project.group + ".boot.PluginBoot", version: project.version, "libVersion": taboolib.tabooLibVersion
+    }
+}
